@@ -1,21 +1,13 @@
+# Use the official Ubuntu base image
+FROM ubuntu:latest
 
-# Use a base image
-FROM ubuntu:20.04
+# Update package list and install Apache2
+RUN apt-get update && \
+    apt-get install -y apache2 && \
+    apt-get clean
 
-# Install curl and unzip
-RUN apt-get update && apt-get install -y curl unzip
+# Start Apache service and keep the container running
+CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
 
-# Download a valid test ZIP file
-RUN curl -fL -o 7-mb.zip https://file-examples.com/wp-content/uploads/2017/02/zip_2MB.zip
-
-# Confirm file type
-RUN file 7-mb.zip
-
-# Unzip the file
-RUN unzip 7-mb.zip -d /testdata
-
-# Set working directory
-WORKDIR /testdata
-
-# Default command
-CMD ["ls", "-l"]
+# Expose port 80 for web traffic
+EXPOSE 80
