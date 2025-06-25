@@ -1,22 +1,21 @@
-FROM almalinux:8
 
-MAINTAINER desaiganesh3101992@gmail.com
+# Use a base image
+FROM ubuntu:20.04
 
-RUN dnf install -y httpd zip unzip curl file && \
-    dnf clean all
-
-WORKDIR /var/www/html/
+# Install curl and unzip
+RUN apt-get update && apt-get install -y curl unzip
 
 # Download a valid test ZIP file
-RUN curl -fL -o 7-mb.zip https://thetestdata.com/files/sample-1mb.zip
+RUN curl -fL -o 7-mb.zip https://file-examples.com/wp-content/uploads/2017/02/zip_2MB.zip
 
 # Confirm file type
 RUN file 7-mb.zip
 
-# Unzip and clean up
-RUN unzip 7-mb.zip || echo "Skipping unzip if archive is empty or invalid" && \
-    rm -f 7-mb.zip
+# Unzip the file
+RUN unzip 7-mb.zip -d /testdata
 
-EXPOSE 80
+# Set working directory
+WORKDIR /testdata
 
-CMD ["/usr/sbin/httpd", "-D", "FOREGROUND"]
+# Default command
+CMD ["ls", "-l"]
