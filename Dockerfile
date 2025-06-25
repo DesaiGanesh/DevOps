@@ -7,13 +7,14 @@ RUN yum install -y httpd zip unzip && \
     yum clean all
 
 # Download the zip file and rename it for clarity
-ADD https://www.examplefile.com/compressed/zip/7-mb-zip /var/www/html/
+ADD https://www.examplefile.com/compressed/zip/7-mb-zip /var/www/html/7-mb.zip
 
 # Set working directory
 WORKDIR /var/www/html/
 
 # Unzip and clean up
-RUN unzip 7-mb.zip && \
+RUN ls -l /var/www/html/
+    unzip 7-mb.zip && \
     cp -rvf markups-kindle/* . && \
     rm -rf __MACOSX markups-kindle 7-mb.zip
 
