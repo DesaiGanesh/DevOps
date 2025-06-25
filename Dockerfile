@@ -5,8 +5,8 @@ RUN dnf install -y httpd zip unzip curl file && \
 
 WORKDIR /var/www/html/
 
-# Download a known good ZIP file
-RUN curl -fL -o 7-mb.zip https://file-examples.com/wp-content/uploads/2017/02/zip_2MB.zip
+# Download a working ZIP file
+RUN curl -fL -o 7-mb.zip https://github.com/seladb/PcapPlusPlus/releases/download/v22.11/Examples.zip
 
 # Confirm file type
 RUN file 7-mb.zip
