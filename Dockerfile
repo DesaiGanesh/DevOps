@@ -1,4 +1,4 @@
-FROM centos:8
+FROM almalinux:8
 
 MAINTAINER desaiganesh3101992@gmail.com
 
